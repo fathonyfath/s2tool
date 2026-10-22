@@ -1,0 +1,4 @@
+# Only Containerfile and s2tool.py are needed to build (read by both podman and docker)
+*
+!Containerfile
+!s2tool.py

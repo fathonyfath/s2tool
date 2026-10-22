@@ -12,11 +12,28 @@ It needs no GPU, display or network. It only converts files; patching and packin
 > The image contains Valve's Workshop Tools (`resourcecompiler.exe`). They are Valve's property, and this
 > project is not affiliated with or endorsed by Valve. See [Notice](#notice).
 
-## Build
+## Get the image
+
+Pull the published image:
+
+```sh
+podman pull ghcr.io/fathonyfath/s2tool:latest
+```
+
+| Tag | What |
+|---|---|
+| `latest` | newest build from `main` |
+| `wine…-dxvk…-s2v…-rc…` | a fixed set of tool versions, e.g. `wine11.0.0.0-dxvk3.1.1-s2v20.1-rcv1.0.0` |
+| `sha-<commit>` | the build of one commit |
+
+Or build it yourself:
 
 ```sh
 podman build -t s2tool .    # ~2 GB
 ```
+
+The examples below use the local name `s2tool`. With the published image, use `ghcr.io/fathonyfath/s2tool`
+instead.
 
 ## Usage
 
@@ -86,10 +103,26 @@ Until then the build fails, rather than using an unverified download.
 ## Tests
 
 ```sh
-python3 test_s2tool.py
+python3 test_s2tool.py   # log parsing and output paths; no Wine or image needed
+./smoke-test.sh          # built image: a valid CSS compiles, a broken one fails
+                         # (ENGINE=docker IMAGE=… to test another engine or image)
 ```
 
-These check the log parsing and output paths, without needing Wine or the image.
+CI (`.github/workflows/image.yml`) runs both. Pull requests only build and test; pushes to `main` also
+publish to GHCR.
+
+## Cleaning up GHCR
+
+Every push to `main` adds a ~2 GB image version. To delete old ones:
+
+```sh
+./prune-ghcr.sh            # list what would be deleted
+./prune-ghcr.sh --yes      # delete: keeps `latest` and the 5 newest tagged versions
+./prune-ghcr.sh --keep 10 --yes
+```
+
+It needs `gh` logged in as the package owner with the `delete:packages` scope
+(`gh auth refresh -s read:packages,delete:packages`).
 
 ## Notice
 
@@ -116,6 +149,6 @@ taken down promptly.
 
 ## License
 
-This repo's own files (`Containerfile`, `s2tool.py`, tests, scripts and config) are licensed under
+This repo's own files (`Containerfile`, `s2tool.py`, tests, scripts, workflow and config) are licensed under
 [0BSD](LICENSE) and contain no third-party binaries. The license does not cover the third-party software
 the image downloads and bundles (see [Notice](#notice)); each keeps its own license.

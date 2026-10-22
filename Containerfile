@@ -1,5 +1,6 @@
+# SPDX-License-Identifier: 0BSD (this file only; see README "Notice" for the bundled software)
 # s2tool: Source 2 toolchain only. Source2Viewer (decompile) + Valve's resourcecompiler under Wine (compile).
-# Private image: it contains Valve's Workshop Tools binaries, so don't push it to a public registry.
+# The image bundles Valve's Workshop Tools; see README "Notice" before publishing it.
 #
 #   podman build -t s2tool .
 #

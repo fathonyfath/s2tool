@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: 0BSD
 """Tests for s2tool's pure helpers. No Wine or image needed: python3 test_s2tool.py"""
 import unittest
 

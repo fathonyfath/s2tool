@@ -1,4 +1,5 @@
 #!/bin/bash
+# SPDX-License-Identifier: 0BSD
 # Recompute the *_SHA256 ARGs in the Containerfile for the versions currently pinned there.
 # Run after Renovate (or you) bumps DXVK_VERSION, S2V_VERSION or RESCOMP_VERSION.
 set -euo pipefail

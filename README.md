@@ -114,4 +114,8 @@ pinned in the `Containerfile` and listed by `s2tool version`.
 **Rights holders:** to have the image or any component removed, open an issue on this repo. It will be
 taken down promptly.
 
-This repo's own files (`Containerfile`, `s2tool.py`, scripts) contain no third-party binaries.
+## License
+
+This repo's own files (`Containerfile`, `s2tool.py`, tests, scripts and config) are licensed under
+[0BSD](LICENSE) and contain no third-party binaries. The license does not cover the third-party software
+the image downloads and bundles (see [Notice](#notice)); each keeps its own license.

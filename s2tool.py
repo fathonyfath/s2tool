@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: 0BSD
 """s2tool: Source 2 toolchain entrypoint.
 
   s2tool decompile <pak01_dir.vpk> <file>[,<file>...]   Source2Viewer: _c -> css/xml/js/png into /out (paths kept)

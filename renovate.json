@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "s2tool: versions in ARG lines tagged with a '# renovate:' comment",
+      "managerFilePatterns": ["/(^|/)Containerfile$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: registryUrl=(?<registryUrl>\\S+))?(?: extractVersion=(?<extractVersion>\\S+))?\\s+ARG \\w+=(?<currentValue>\\S+)"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Checksums must be refreshed by hand: run ./update-checksums.sh on the PR branch",
+      "matchFileNames": ["Containerfile"],
+      "prBodyNotes": ["Run `./update-checksums.sh` and commit the result, or the image build fails the checksum check."]
+    }
+  ]
+}

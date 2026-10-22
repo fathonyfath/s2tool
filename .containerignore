@@ -1,0 +1,4 @@
+# only Containerfile + s2tool.py are needed to build
+*
+!Containerfile
+!s2tool.py

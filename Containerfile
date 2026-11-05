@@ -8,7 +8,7 @@
 # Renovate doesn't touch the *_SHA256 values; after a bump run ./update-checksums.sh (a stale checksum fails the build).
 
 # ---------------------------------------------------------------- downloads (verified, then discarded)
-FROM docker.io/library/debian:trixie-slim@sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2 AS fetch
+FROM docker.io/library/debian:trixie-slim@sha256:1e1a22175fbf1b32157ddaf0219e1db4e5401fab2b94ed285add64d18587cd2d AS fetch
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl 7zip \
@@ -39,7 +39,7 @@ RUN curl -fsSLo dxvk.tar.gz "https://github.com/doitsujin/dxvk/releases/download
       "@WINE@" "$DXVK_VERSION" "$S2V_VERSION" "$RESCOMP_VERSION" > /opt/toolchain.json
 
 # ---------------------------------------------------------------- runtime
-FROM docker.io/library/debian:trixie-slim@sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2
+FROM docker.io/library/debian:trixie-slim@sha256:1e1a22175fbf1b32157ddaf0219e1db4e5401fab2b94ed285add64d18587cd2d
 
 # renovate: datasource=deb depName=wine-stable-amd64 registryUrl=https://dl.winehq.org/wine-builds/debian?suite=trixie&components=main&binaryArch=amd64
 ARG WINE_VERSION=11.0.0.0~trixie-1

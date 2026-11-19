@@ -5,7 +5,7 @@
 #   podman build -t s2tool .
 #
 # Every version below is pinned. The "# renovate:" comments let Renovate bump them (see renovate.json);
-# Renovate doesn't touch the *_SHA256 values; after a bump run ./update-checksums.sh (a stale checksum fails the build).
+# Renovate updates each *_SHA256 with its version. A version ARG holds the exact release tag, which Renovate needs to find the release.
 
 # ---------------------------------------------------------------- downloads (verified, then discarded)
 FROM docker.io/library/debian:trixie-slim@sha256:7378260c0a098d27ac206225db5e7d92b8c7c84ea7afccc86eeb513756bbd392 AS fetch
@@ -14,18 +14,18 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl 7zip \
  && rm -rf /var/lib/apt/lists/*
 
-# renovate: datasource=github-releases depName=doitsujin/dxvk extractVersion=^v(?<version>.+)$
-ARG DXVK_VERSION=3.1.1
+# renovate: datasource=github-release-attachments depName=doitsujin/dxvk
+ARG DXVK_VERSION=v3.1.1
 ARG DXVK_SHA256=40565b4a724aadc4433fa4e010b4b23916d9b1f1baeee64e17186db94f54e608
-# renovate: datasource=github-releases depName=ValveResourceFormat/ValveResourceFormat
-ARG S2V_VERSION=20.1
-ARG S2V_SHA256=29d25a6d6b62377fc5386c3e5145b0a2180a401a50041afe9494b3f503deaef5
-# renovate: datasource=github-releases depName=Dota-Modding-Community/workshoptools
+# renovate: datasource=github-release-attachments depName=ValveResourceFormat/ValveResourceFormat
+ARG S2V_VERSION=21.1
+ARG S2V_SHA256=6c76b646485977480b9f25bcf5026c30856f70e5d138a1eb127b52d768156843
+# renovate: datasource=github-release-attachments depName=Dota-Modding-Community/workshoptools
 ARG RESCOMP_VERSION=v1.0.1
 ARG RESCOMP_SHA256=9b22dff52ce4da9553a1112cfec79dfc87739cda08865b4417bcddaf973b2107
 
 WORKDIR /dl
-RUN curl -fsSLo dxvk.tar.gz "https://github.com/doitsujin/dxvk/releases/download/v${DXVK_VERSION}/dxvk-${DXVK_VERSION}.tar.gz" \
+RUN curl -fsSLo dxvk.tar.gz "https://github.com/doitsujin/dxvk/releases/download/${DXVK_VERSION}/dxvk-${DXVK_VERSION#v}.tar.gz" \
  && curl -fsSLo s2v.zip "https://github.com/ValveResourceFormat/ValveResourceFormat/releases/download/${S2V_VERSION}/cli-linux-x64.zip" \
  && curl -fsSLo rescomp.zip "https://github.com/Dota-Modding-Community/workshoptools/releases/download/${RESCOMP_VERSION}/resourcecompiler.zip" \
  && printf '%s  %s\n' "$DXVK_SHA256" dxvk.tar.gz "$S2V_SHA256" s2v.zip "$RESCOMP_SHA256" rescomp.zip | sha256sum -c - \
@@ -33,10 +33,10 @@ RUN curl -fsSLo dxvk.tar.gz "https://github.com/doitsujin/dxvk/releases/download
  && 7z x -bd -o/opt/s2v s2v.zip >/dev/null && chmod 755 /opt/s2v/Source2Viewer-CLI \
  && 7z x -bd -o/opt rescomp.zip >/dev/null && mv /opt/resourcecompiler /opt/rescomp \
  && tar -xzf dxvk.tar.gz \
- && for dll in d3d11 dxgi d3d9 d3d10core; do cp "dxvk-${DXVK_VERSION}/x64/${dll}.dll" /opt/rescomp/game/bin/win64/; done \
+ && for dll in d3d11 dxgi d3d9 d3d10core; do cp "dxvk-${DXVK_VERSION#v}/x64/${dll}.dll" /opt/rescomp/game/bin/win64/; done \
  && rm -rf /opt/rescomp/content/dota_addons/* /opt/rescomp/game/dota_addons/* \
  && printf '{\n  "image": "s2tool",\n  "wine": "%s",\n  "dxvk": "%s",\n  "source2viewer": "%s",\n  "resourcecompiler": "%s"\n}\n' \
-      "@WINE@" "$DXVK_VERSION" "$S2V_VERSION" "$RESCOMP_VERSION" > /opt/toolchain.json
+      "@WINE@" "${DXVK_VERSION#v}" "$S2V_VERSION" "$RESCOMP_VERSION" > /opt/toolchain.json
 
 # ---------------------------------------------------------------- runtime
 FROM docker.io/library/debian:trixie-slim@sha256:7378260c0a098d27ac206225db5e7d92b8c7c84ea7afccc86eeb513756bbd392

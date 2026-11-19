@@ -1,13 +1,13 @@
 #!/bin/bash
 # SPDX-License-Identifier: 0BSD
 # Recompute the *_SHA256 ARGs in the Containerfile for the versions currently pinned there.
-# Run after Renovate (or you) bumps DXVK_VERSION, S2V_VERSION or RESCOMP_VERSION.
+# Renovate updates them itself. Run this after bumping DXVK_VERSION, S2V_VERSION or RESCOMP_VERSION by hand.
 set -euo pipefail
 cf=$(dirname "$0")/Containerfile
 arg() { sed -nE "s/^ARG $1=(.*)/\1/p" "$cf"; }
 
 declare -A url=(
-	[DXVK]="https://github.com/doitsujin/dxvk/releases/download/v$(arg DXVK_VERSION)/dxvk-$(arg DXVK_VERSION).tar.gz"
+	[DXVK]="https://github.com/doitsujin/dxvk/releases/download/$(arg DXVK_VERSION)/dxvk-$(arg DXVK_VERSION | sed s/^v//).tar.gz"
 	[S2V]="https://github.com/ValveResourceFormat/ValveResourceFormat/releases/download/$(arg S2V_VERSION)/cli-linux-x64.zip"
 	[RESCOMP]="https://github.com/Dota-Modding-Community/workshoptools/releases/download/$(arg RESCOMP_VERSION)/resourcecompiler.zip"
 )

@@ -92,13 +92,16 @@ How it works:
 ## Updating
 
 [Renovate](https://docs.renovatebot.com/) (`renovate.json`) bumps the base image, Wine, DXVK, Source2Viewer
-and resourcecompiler. It can't update the download checksums, so on each Renovate PR run:
+and resourcecompiler. For each download it updates the version and its SHA-256 together, hashing the same
+release asset in the new version.
+
+After bumping a version by hand, update the checksums with:
 
 ```sh
 ./update-checksums.sh
 ```
 
-Until then the build fails, rather than using an unverified download.
+A stale checksum fails the build, rather than using an unverified download.
 
 ## Tests
 

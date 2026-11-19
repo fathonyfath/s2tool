@@ -19,7 +19,7 @@ ARG DXVK_VERSION=v3.1.1
 ARG DXVK_SHA256=40565b4a724aadc4433fa4e010b4b23916d9b1f1baeee64e17186db94f54e608
 # renovate: datasource=github-release-attachments depName=ValveResourceFormat/ValveResourceFormat
 ARG S2V_VERSION=21.1
-ARG S2V_SHA256=29d25a6d6b62377fc5386c3e5145b0a2180a401a50041afe9494b3f503deaef5
+ARG S2V_SHA256=6c76b646485977480b9f25bcf5026c30856f70e5d138a1eb127b52d768156843
 # renovate: datasource=github-release-attachments depName=Dota-Modding-Community/workshoptools
 ARG RESCOMP_VERSION=v1.0.1
 ARG RESCOMP_SHA256=9b22dff52ce4da9553a1112cfec79dfc87739cda08865b4417bcddaf973b2107

@@ -8,7 +8,7 @@
 # Renovate updates each *_SHA256 with its version. A version ARG holds the exact release tag, which Renovate needs to find the release.
 
 # ---------------------------------------------------------------- downloads (verified, then discarded)
-FROM docker.io/library/debian:trixie-slim@sha256:7378260c0a098d27ac206225db5e7d92b8c7c84ea7afccc86eeb513756bbd392 AS fetch
+FROM docker.io/library/debian:trixie-slim@sha256:ab3b3c8c5159eebfca4376430132d53c4d425f869c765ecbe47177a030da575d AS fetch
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl 7zip \
@@ -39,7 +39,7 @@ RUN curl -fsSLo dxvk.tar.gz "https://github.com/doitsujin/dxvk/releases/download
       "@WINE@" "${DXVK_VERSION#v}" "$S2V_VERSION" "$RESCOMP_VERSION" > /opt/toolchain.json
 
 # ---------------------------------------------------------------- runtime
-FROM docker.io/library/debian:trixie-slim@sha256:7378260c0a098d27ac206225db5e7d92b8c7c84ea7afccc86eeb513756bbd392
+FROM docker.io/library/debian:trixie-slim@sha256:ab3b3c8c5159eebfca4376430132d53c4d425f869c765ecbe47177a030da575d
 
 # renovate: datasource=deb depName=wine-stable-amd64 registryUrl=https://dl.winehq.org/wine-builds/debian?suite=trixie&components=main&binaryArch=amd64
 ARG WINE_VERSION=11.0.0.0~trixie-1

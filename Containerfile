@@ -15,8 +15,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-release-attachments depName=doitsujin/dxvk
-ARG DXVK_VERSION=v3.1.1
-ARG DXVK_SHA256=40565b4a724aadc4433fa4e010b4b23916d9b1f1baeee64e17186db94f54e608
+ARG DXVK_VERSION=v3.2
+ARG DXVK_SHA256=17449ed21602377971289eb2984750699825ac1bac3bbfa2426b2bba0f355692
 # renovate: datasource=github-release-attachments depName=ValveResourceFormat/ValveResourceFormat
 ARG S2V_VERSION=21.1
 ARG S2V_SHA256=6c76b646485977480b9f25bcf5026c30856f70e5d138a1eb127b52d768156843

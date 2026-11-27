@@ -18,8 +18,8 @@ RUN apt-get update \
 ARG DXVK_VERSION=v3.2
 ARG DXVK_SHA256=17449ed21602377971289eb2984750699825ac1bac3bbfa2426b2bba0f355692
 # renovate: datasource=github-release-attachments depName=ValveResourceFormat/ValveResourceFormat
-ARG S2V_VERSION=21.1
-ARG S2V_SHA256=6c76b646485977480b9f25bcf5026c30856f70e5d138a1eb127b52d768156843
+ARG S2V_VERSION=21.2
+ARG S2V_SHA256=e097d2d69854fa28d2ae7bd3698de23fc922f64a89037abedb3ed8b34527f8ba
 # renovate: datasource=github-release-attachments depName=Dota-Modding-Community/workshoptools
 ARG RESCOMP_VERSION=v1.0.1
 ARG RESCOMP_SHA256=9b22dff52ce4da9553a1112cfec79dfc87739cda08865b4417bcddaf973b2107
